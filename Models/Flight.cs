@@ -30,7 +30,7 @@ namespace AirplaneBookingSystem.Models
         [Required]
         public DateTime ArrivalTime { get; set; }
 
-
+        [DisplayName("Free Seats")]
         public int FreeSeats { get; set; }
 
         [DisplayName("Number of Seats")]
@@ -42,5 +42,7 @@ namespace AirplaneBookingSystem.Models
         public IList<UserFlights> UserFlights { get; set; }
 
         public IList<OverbookedUser> OverbookedUsers { get; set; }
+        
+
     }
 }

@@ -122,7 +122,6 @@ C:\Users\Gabriel Kuka\source\repos\AirplaneBookingSystem\obj\Debug\netcoreapp3.0
 C:\Users\Gabriel Kuka\source\repos\AirplaneBookingSystem\obj\Debug\netcoreapp3.0\AirplaneBookingSystem.dll
 C:\Users\Gabriel Kuka\source\repos\AirplaneBookingSystem\obj\Debug\netcoreapp3.0\AirplaneBookingSystem.pdb
 C:\Users\Gabriel Kuka\source\repos\AirplaneBookingSystem\bin\Debug\netcoreapp3.0\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
-C:\Users\Gabriel Kuka\source\repos\AirplaneBookingSystem\obj\Debug\netcoreapp3.0\AirplaneBookingSystem.MvcApplicationPartsAssemblyInfo.cache
 C:\Users\Gabriel Kuka\source\repos\AirplaneBookingSystem\obj\Debug\netcoreapp3.0\Razor\Views\Account\Register.cshtml.g.cs
 C:\Users\Gabriel Kuka\source\repos\AirplaneBookingSystem\obj\Debug\netcoreapp3.0\Razor\Views\Account\Login.cshtml.g.cs
 C:\Users\Gabriel Kuka\source\repos\AirplaneBookingSystem\obj\Debug\netcoreapp3.0\Razor\Views\Flight\Index.cshtml.g.cs
@@ -277,5 +276,9 @@ C:\Users\Gabriel Kuka\source\repos\AirplaneBookingSystem\obj\Debug\netcoreapp3.0
 C:\Users\Gabriel Kuka\source\repos\AirplaneBookingSystem\obj\Debug\netcoreapp3.0\Razor\Views\Errors\MustBeLoggedIn.cshtml.g.cs
 C:\Users\Gabriel Kuka\source\repos\AirplaneBookingSystem\obj\Debug\netcoreapp3.0\Razor\Views\Errors\NextFlightOverbookedError.cshtml.g.cs
 C:\Users\Gabriel Kuka\source\repos\AirplaneBookingSystem\obj\Debug\netcoreapp3.0\Razor\Views\Errors\NoNextFlightError.cshtml.g.cs
-C:\Users\Gabriel Kuka\source\repos\AirplaneBookingSystem\obj\Debug\netcoreapp3.0\Razor\Views\Success\MovedToNextFlight.cshtml.g.cs
 C:\Users\Gabriel Kuka\source\repos\AirplaneBookingSystem\obj\Debug\netcoreapp3.0\Razor\Views\Flight\CancelBooking.cshtml.g.cs
+C:\Users\Gabriel Kuka\source\repos\AirplaneBookingSystem\bin\Debug\netcoreapp3.0\MailKit.dll
+C:\Users\Gabriel Kuka\source\repos\AirplaneBookingSystem\bin\Debug\netcoreapp3.0\MimeKit.dll
+C:\Users\Gabriel Kuka\source\repos\AirplaneBookingSystem\bin\Debug\netcoreapp3.0\BouncyCastle.Crypto.dll
+C:\Users\Gabriel Kuka\source\repos\AirplaneBookingSystem\obj\Debug\netcoreapp3.0\AirplaneBookingSystem.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\Gabriel Kuka\source\repos\AirplaneBookingSystem\obj\Debug\netcoreapp3.0\Razor\Views\Email\SendEmail.cshtml.g.cs

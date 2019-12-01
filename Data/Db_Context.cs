@@ -14,6 +14,7 @@ namespace AirplaneBookingSystem.Data
             base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<UserFlights>().HasKey(sc => new { sc.UserId, sc.FlightId });
             modelBuilder.Entity<OverbookedUser>().HasKey(sc => new { sc.FlightId, sc.Email});
+
         }
 
         public virtual DbSet<User> Users { get; set; }
@@ -36,6 +37,16 @@ namespace AirplaneBookingSystem.Data
                 if (user.Email == em)
                     return user;
             }
+            return null;
+        }
+
+        public OverbookedUser GetOverbookedUserFromEmailAndFlight(string Email, Flight flight) {
+            foreach (var oUser in OverbookedUsers) {
+                if (Email.Equals(oUser.Email) && flight.Equals(oUser.Flight)) {
+                    return oUser;
+                }
+            }
+
             return null;
         }
 

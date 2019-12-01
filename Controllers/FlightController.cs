@@ -40,22 +40,29 @@ namespace AirplaneBookingSystem.Controllers
                 else
                 { // if not, move the overbooked users there
 
+                    List<string> overbookedEmails = new List<string>();
+
                     // list of overbooked users from this flight
                     var overbookedUsers = ctx.GetOverbookedUsersFromFlight(currentFlight); 
 
                     // Removes all overbooked users and replaces them to the next available flight
                     for (int i = 0; i < overbookedUsers.Count; i++)
-                    {   
+                    {
+                        overbookedEmails.Add(overbookedUsers.ElementAt(i).Email);
                         ctx.UserFlights.Add(new UserFlights { User = ctx.GetUserFromEmail(overbookedUsers.ElementAt(i).Email), Flight = nextFlight });
                         --nextFlight.FreeSeats;
 
-                        ctx.OverbookedUsers.Remove(overbookedUsers.ElementAt(i));
+
                         ctx.UserFlights.Remove(ctx.GetSpecificUserFlight(currentFlight, ctx.GetUserFromEmail(overbookedUsers.ElementAt(i).Email)));
+                        ctx.OverbookedUsers.Remove(overbookedUsers.ElementAt(i));
+                       
                         ++currentFlight.FreeSeats;
                         await ctx.SaveChangesAsync();
                     }
 
-                    return View("/Views/Success/MovedToNextFlight.cshtml");
+            
+                   
+                    return RedirectToAction("SendEmail", "Email", new { emails = overbookedEmails });
                 }
             }
             else
@@ -87,7 +94,7 @@ namespace AirplaneBookingSystem.Controllers
             
                 if (ModelState.IsValid && IsTimeValid(flight.DepartureTime, flight.ArrivalTime))
                 {               // Check validation 
-                    
+
                 
                 ctx.Flights.Add(flight);            // Add the flight
                 flight.FreeSeats = flight.TotalSeats;
@@ -118,7 +125,14 @@ namespace AirplaneBookingSystem.Controllers
         public async Task<IActionResult> Delete(int flightId) {
 
                 var currentFlight = await ctx.Flights.FindAsync(flightId);
-                ctx.Flights.Remove(currentFlight);
+                List<OverbookedUser> oUsers = ctx.GetOverbookedUsersFromFlight(currentFlight);
+                 ctx.Flights.Remove(currentFlight);
+
+                if (oUsers.Count() > 0) {
+                    foreach (var oUser in oUsers) {
+                    ctx.OverbookedUsers.Remove(oUser);
+                    }
+                }    
                 await ctx.SaveChangesAsync();
 
                 return RedirectToAction(nameof(Index));
@@ -203,10 +217,12 @@ namespace AirplaneBookingSystem.Controllers
                 
                 ctx.UserFlights.Add(userFlight);  // add the user flight to the db
                 --currentFlight.FreeSeats;        // assign the seat as reserved
+                
 
                 // Set the user as overbooked
                 if (currentFlight.FreeSeats < 0) {
                     var overbookedUser = new OverbookedUser { Flight = currentFlight, Email = currentUser.Email };
+               
                     ctx.OverbookedUsers.Add(overbookedUser);
                 }
 
@@ -293,18 +309,23 @@ namespace AirplaneBookingSystem.Controllers
             var currentFlight = await ctx.Flights.FindAsync(id);
 
             // Create a User Flight so we know who had this flight for the View
-            var userFlight = new UserFlights
-            {
-                User = currentUser,
-                Flight = currentFlight
-            };
+
+            var userFlight = ctx.GetSpecificUserFlight(currentFlight, currentUser);
 
             if (userFlight != null)
             {
+                // Remove overbooked user
+                if (ctx.OverbookedUsers.Any(e => e.Email == currentUser.Email))
+                {
+                    ctx.OverbookedUsers.Remove(ctx.GetOverbookedUserFromEmailAndFlight(currentUser.Email, currentFlight));
+                }
+
                 ctx.UserFlights.Remove(userFlight);  // removes the user flight from the db
                 ++currentFlight.FreeSeats;        // assigns the seat as free
                 await ctx.SaveChangesAsync();     // save changes to db
             }
+
+            
 
 
             return View(userFlight);
