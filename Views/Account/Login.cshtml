@@ -1,0 +1,54 @@
+﻿@model LoginViewModel
+
+@{ViewBag.Title = "Login";}
+
+
+    <head>
+        <style type="text/css">
+
+            body {
+                background: url('/images/login_bg_image.png') no-repeat center center fixed;
+                -webkit-background-size: cover;
+                -moz-background-size: cover;
+                background-size: cover;
+                -o-background-size: cover;
+            }
+
+            label, h1 {
+                color: antiquewhite;
+            }
+             .form-control, .form-control:focus {
+                background: transparent;
+                color: antiquewhite;
+            }
+        </style>
+    </head>
+
+<h1>Log In</h1>
+
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Email" ></label>
+                <input class="form-control" asp-for="Email" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Password"></label>
+                <input class="form-control" asp-for="Password" />
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <div class="checkbox">
+                    <label asp-for="RememberMe">
+                        <input asp-for="RememberMe" />
+                        @Html.DisplayNameFor(m => m.RememberMe)
+                    </label>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Login</button>
+        </form>
+    </div>
+</div>

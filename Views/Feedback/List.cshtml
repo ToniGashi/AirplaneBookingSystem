@@ -1,0 +1,63 @@
+﻿@model IEnumerable<AirplaneBookingSystem.Models.Feedback>
+
+@{
+    ViewData["Title"] = "List";
+}
+<html lang="en">
+<head>
+    <style type="text/css">
+        h1 {
+            text-align: center;
+            font-weight: bold;
+        }
+
+        hr {
+            border-color: darkred;
+        }
+    </style>
+</head>
+<body>
+    <h1>Customer Feedback</h1>
+    <hr />
+    <br />
+ 
+    <table class="table table-borderless table-hover ">
+        <thead class="thead-dark">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Email)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Title)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Body)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Email)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Title)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Body)
+                    </td>
+
+                </tr>
+            }
+        </tbody>
+    </table>
+    <br />
+    <hr />
+    <div>
+        <a asp-action="Index" asp-controller="Flight">Back to Flights</a>
+    </div>
+</body>
+</html>

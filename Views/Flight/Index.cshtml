@@ -1,0 +1,87 @@
+﻿@model IEnumerable<Flight> 
+
+<html>
+<head>
+    <style type="text/css">
+        h4 {
+            padding: 5px 5px 5px 5px;
+            text-align: center;
+        }
+
+        hr {
+            border-color: darkred;
+        }
+    </style>
+</head>
+<body>
+
+
+
+    @if ((bool)ViewData["isAdmin"])         // Check whether user is admin
+    {
+        <hr />
+        <h4>Welcome Administrator!</h4>
+        <hr />                                            
+        <div style="display:inline-block;">
+            <a class="btn btn-outline-info" asp-action="Create">Create A Flight</a>
+            <a class="btn btn-outline-info" asp-action="List" asp-controller="Feedback">See the feedback</a>
+        </div>
+        <br />
+        <br />
+
+    }
+    else                                  // If not we provide the option to leave a feedback
+    {
+        <h1>List of Available Flights</h1>
+        <br />
+        <a class="btn btn-link" asp-controller="feedback" asp-action="create">Leave a Feedback</a>
+        <br/>
+    }
+
+    <table class="table table-borderless table-hover ">
+        <thead class="thead-dark">
+            <tr>
+                <th> @Html.DisplayNameFor(model => model.FlightNumber)</th>
+                <th> @Html.DisplayNameFor(model => model.Departure)</th>
+                <th> @Html.DisplayNameFor(model => model.Arrival)</th>
+                <th> @Html.DisplayNameFor(model => model.DepartureTime)</th>
+                <th> @Html.DisplayNameFor(model => model.ArrivalTime)</th>
+                <th>@Html.DisplayNameFor(model => model.FreeSeats)</th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(model => item.FlightNumber)</td>
+
+                    <td>@Html.DisplayFor(model => item.Departure)</td>
+
+                    <td>@Html.DisplayFor(model => item.Arrival)</td>
+
+                    <td>@Html.DisplayFor(model => item.DepartureTime)</td>
+
+                    <td>@Html.DisplayFor(model => item.ArrivalTime)</td>
+
+                    <td>@Html.DisplayFor(model => item.FreeSeats)</td>
+
+                    <td><a asp-action="Details" asp-route-id="@item.FlightId" class="btn btn-outline-info">Details</a></td>
+                    @if ((bool)ViewData["isAdmin"])
+                    {
+                        <td><a asp-action="Edit" asp-route-id="@item.FlightId" class="btn btn-outline-warning">Edit</a></td>
+
+
+                    }
+
+                </tr>
+
+            }
+        </tbody>
+    </table>
+
+</body>
+
+</html>

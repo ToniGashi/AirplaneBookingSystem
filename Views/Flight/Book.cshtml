@@ -1,0 +1,29 @@
+﻿@model AirplaneBookingSystem.Models.UserFlights
+
+<h1>Success!</h1>
+
+<div class="border-success">
+    You have successfully booked this flight.
+</div>
+
+<div>
+    <h3>Booking details:</h3>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Flight.FlightNumber)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Flight.FlightNumber)
+        </dd>
+
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.User.Email)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.User.Email)
+        </dd>
+    </dl>
+
+    <a asp-action="Index">Go to Homepage</a>
+</div>

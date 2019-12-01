@@ -1,0 +1,42 @@
+﻿@model AirplaneBookingSystem.Models.UserFlights
+
+    <div class="border-success">
+       <h5> You have successfully canceled this flight!</h5>
+        <h5> </h5>
+        <h6>If you wish to rebook this or any of our flights, please click the "Go to homepage" button to see a list of the available flights.</h6>
+        <br />
+    </div>
+
+<div>
+    <h3>Cancelled Flight details:</h3>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Flight.FlightNumber) 
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Flight.FlightNumber)
+        </dd>
+
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Flight.Departure)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Flight.Departure)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Flight.Arrival)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Flight.Arrival)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Flight.DepartureTime)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Flight.DepartureTime)
+        </dd>
+    </dl>
+
+    <a asp-action="Index" class="btn btn-outline-info">Go to Homepage</a>
+</div>

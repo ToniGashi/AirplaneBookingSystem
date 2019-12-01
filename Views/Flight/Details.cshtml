@@ -1,0 +1,135 @@
+﻿@model AirplaneBookingSystem.Models.Flight
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<html>
+<head>
+    <style type="text/css">
+        .lowerOperationsList {
+            overflow: hidden;
+            padding: 0;
+            margin: 0;
+            list-style-type: none;
+        }
+
+        .operationsListItem {
+            margin: 5px;
+            float: left;
+        }
+    </style>
+</head>
+<body>
+    <h1>Details</h1>
+
+    <div>
+        <h4>Flight</h4>
+        <hr />
+        <dl class="row">
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.FlightNumber)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.FlightNumber)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Departure)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Departure)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Arrival)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Arrival)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.DepartureTime)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.DepartureTime)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.ArrivalTime)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.ArrivalTime)
+            </dd>
+        </dl>
+    </div>
+    <div>
+
+        <a asp-action="Index">Go Back</a>
+
+
+        @if ((bool)ViewData["isAdmin"])
+        {
+            <hr /><br />
+
+            if (Model.FreeSeats < 0)
+            {
+
+                <label>This flight is overbooked.</label><br />
+                <label>Overbooked users:</label> <br />
+                <ul>
+                    @foreach (var overbookedUser in ViewData["OverbookedUsers"] as List<String>)
+                    {
+                        <li>@overbookedUser</li>
+                    }
+                </ul>
+            }
+            <div>
+                <ul class="lowerOperationsList">
+                    <li class="operationsListItem">
+                        @if (Model.OverbookedUsers != null)
+                        {
+                            <form asp-action="">
+                                <input type="submit" asp-action="MoveToNextFlight" asp-route-id="@Model.FlightId" value="Move overbooked users to the next flight" class="btn btn-info" />
+                            </form>
+                        }
+                    </li>
+                    <li class="operationsListItem">
+                        <form asp-action="Delete">
+                            <input type="hidden" asp-for="FlightId" />
+                            <input type="submit" class="btn btn-danger" value="Delete This Flight" />
+                        </form>
+                    </li>
+                </ul>
+            </div>
+            <br />
+
+        }
+        else
+        {
+
+
+
+            if ((bool)ViewData["isBooked"])
+            {
+                <a class="btn btn-outline-danger" asp-action="CancelBooking" asp-route-id="@Model.FlightId">Cancel Booking</a>
+            }
+            else
+            {
+                if (Model.FreeSeats <= ((Model.TotalSeats * 0.15) * (-1)))
+                {
+                    <br />
+                    <div class="alert">
+                        Sorry there are no free seats in this flight.
+                    </div>
+                }
+                else
+                {
+                    <a class="btn btn-outline-success" asp-action="Book" asp-route-id="@Model.FlightId">Book This Flight</a>
+                }
+
+            }
+        }
+
+
+    </div>
+
+</body>
+</html>
+
