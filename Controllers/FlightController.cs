@@ -60,8 +60,6 @@ namespace AirplaneBookingSystem.Controllers
                         await ctx.SaveChangesAsync();
                     }
 
-            
-                   
                     return RedirectToAction("SendEmail", "Email", new { emails = overbookedEmails });
                 }
             }
@@ -160,7 +158,6 @@ namespace AirplaneBookingSystem.Controllers
             {
                 return View("Views/Errors/MustBeAdmin.cshtml");
             }
-            
         }
         
         [HttpPost]
@@ -315,9 +312,12 @@ namespace AirplaneBookingSystem.Controllers
             if (userFlight != null)
             {
                 // Remove overbooked user
-                if (ctx.OverbookedUsers.Any(e => e.Email == currentUser.Email))
+                foreach(var overUser in ctx.OverbookedUsers)
                 {
-                    ctx.OverbookedUsers.Remove(ctx.GetOverbookedUserFromEmailAndFlight(currentUser.Email, currentFlight));
+                    if(overUser.Email==currentUser.Email)
+                    {
+                        ctx.OverbookedUsers.Remove(ctx.GetOverbookedUserFromEmailAndFlight(currentUser.Email, currentFlight));
+                    }
                 }
 
                 ctx.UserFlights.Remove(userFlight);  // removes the user flight from the db
